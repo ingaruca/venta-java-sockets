@@ -1,0 +1,35 @@
+package consulta;
+
+import java.net.ServerSocket;
+import java.util.ArrayList;
+
+public class Servidor {
+	
+	private static Producto objProducto;
+	private static ArrayList<Producto> catalogoProductos;
+
+	public static void main(String[] args) {
+		
+		int precio, cantidad, subTotal;
+		double descuento, total;
+		String _codigo, _cantidad, _tipoCliente;
+		
+		ServerSocket server = null;
+		
+		try {
+			
+		} catch (Exception e) {
+			
+		}
+
+	}
+	
+	private static void llenarDatos() {
+		
+		catalogoProductos = new ArrayList<Producto>();
+		
+		objProducto  = new Producto("A100", "Televisor", 1700);
+		
+	}
+
+}

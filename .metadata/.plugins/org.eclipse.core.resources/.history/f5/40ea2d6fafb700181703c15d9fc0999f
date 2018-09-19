@@ -1,0 +1,117 @@
+package consulta;
+
+import java.io.DataInputStream;
+import java.io.InputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.ArrayList;
+
+public class Servidor {
+	
+	private static Producto objProducto;
+	private static ArrayList<Producto> catalogoProductos;
+
+	public static void main(String[] args) {
+		
+		int precio, cantidad, subTotal;
+		double total;
+		String _codigo, _cantidad, _tipoCliente;
+		
+		ServerSocket server = null;
+		
+		try {
+			
+			server = new ServerSocket(5051);
+			System.out.println(".:: SERVIDOR CON CONEXIÓN ::.");
+			
+			Socket socket = server.accept();
+			InputStream entrada = socket.getInputStream();
+			DataInputStream dis = new DataInputStream(entrada);
+			_codigo = dis.readUTF();
+			
+			System.out.println("El producto seleccionado es: " + nombreProducto(_codigo));
+			
+		} catch (Exception e) {
+			
+		}
+
+	}
+	
+	private static void llenarDatos() {
+		
+		catalogoProductos = new ArrayList<Producto>();
+		
+		objProducto  = new Producto("A100", "Samsung UHD 50", 2700);
+		catalogoProductos.add(objProducto);
+		
+		objProducto  = new Producto("A200", "Play Station 4 Pro", 1800);
+		catalogoProductos.add(objProducto);
+		
+		objProducto  = new Producto("A300", "Iphone X 64GB", 3500);
+		catalogoProductos.add(objProducto);
+		
+		objProducto  = new Producto("A400", "Macbook Pro 13 256GB", 4850);
+		catalogoProductos.add(objProducto);
+		
+	}
+	
+	private static String nombreProducto(String codigo) {
+		
+		String producto = "";
+		String cod = "";
+		
+		llenarDatos();
+		
+		for (int i = 0; i < catalogoProductos.size(); i++) {
+			cod = catalogoProductos.get(i).getCodigo();
+			if (cod.equals(codigo)) {
+				producto = catalogoProductos.get(i).getNombre();
+				break;
+			}
+		}
+				
+		return producto;
+		
+	}
+	
+	private static int precioProducto(String codigo) {
+		
+		int precio = 0;
+		String cod = "";
+		
+		llenarDatos();
+		
+		for (int i = 0; i < catalogoProductos.size(); i++) {
+			cod = catalogoProductos.get(i).getCodigo();
+			if (cod.equals(codigo)) {
+				precio = catalogoProductos.get(i).getPrecio();
+				break;
+			}
+		}
+		
+		return precio;
+		
+	}
+	
+	private static double calcularTotal(String tipoUsuario, int subTotal) {
+		
+		double total = 0;
+		
+		switch (tipoUsuario) {
+		case "1":
+			total = subTotal - (subTotal * 0.02);
+			break;
+		case "2":
+			total = subTotal - (subTotal * 0.03);
+		case "3":
+			total = subTotal - (subTotal * 0.01);
+		default:
+			total = subTotal;
+			break;
+		}
+		
+		return total;
+		
+	}
+
+}

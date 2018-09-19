@@ -1,0 +1,16 @@
+package consulta;
+
+import java.util.ArrayList;
+
+public class Servidor {
+	
+	private Producto objProducto;
+	private ArrayList<Producto> catalogoProductos;
+
+	public static void main(String[] args) {
+		
+		
+
+	}
+
+}
